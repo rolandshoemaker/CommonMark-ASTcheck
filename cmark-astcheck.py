@@ -11,7 +11,10 @@ def check_block(ast, isJSON=True, struct=""):
 	else:
 		for t in block.keys():
 			if not t in ["t", "c", "open", "last_line_blank", "start_line", "start_column", "end_line", "children", "string_content", "strings", "inline_content", "destination", "label", "title", "list_data", "info", "tight"]:
-				print(t+" is not a valid key.")
+				if not struct is "":
+					print(struct+"."+t+" is not a valid key.")
+				else:
+					print(t+" is not a valid key.")
 	if not type(block['t']) is str:
 		print(struct+block['t']+".t is not a string.")
 	if not type(block['c']) is list or not type(block['c']) is str:
