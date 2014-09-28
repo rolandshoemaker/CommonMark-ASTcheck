@@ -3,7 +3,7 @@ import json, argparse
 
 def check_block(ast, isJSON=True):
 	if isJSON:
-		block = json.parse(ast)
+		block = json.loads(ast)
 	else:
 		block = ast
 	if not type(block) is object:
