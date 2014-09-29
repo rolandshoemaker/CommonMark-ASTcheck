@@ -22,7 +22,7 @@ def check_block(ast, isJSON=True, struct=""):
 					print(t+" is not a valid key.")
 					failed += 1
 	if not type(block['t']) is str:
-		print(struct+block['t']+".t is not a string.")
+		print(struct+".*something* is not a string.")
 		failed += 1
 	if not type(block['c']) is list or not type(block['c']) is str:
 		print(struct+block['t']+".c is not a string or list.")
