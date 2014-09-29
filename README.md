@@ -16,7 +16,7 @@ Usage
     SetextHeader.strings[0] is not a string.
     Document.children[0].SetextHeader.inline_content[1] is not a object.
     Document.children[0].SetextHeader.tight is not a boolean.
-    Document.children[1].Paragraph.inline_content[0]..bar is not a valid key.
+    Document.children[1].Paragraph.inline_content[0].bar is not a valid key.
     Document.children[1].Paragraph.inline_content[1].Link.label[0].Str.last_line_blank is not a boolean.
     SetextHeader.strings[0] is not a string.
     Document.children[3].IndentedCode.start_column is not a integer.

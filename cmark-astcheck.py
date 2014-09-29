@@ -16,7 +16,7 @@ def check_block(ast, isJSON=True, struct=""):
 		for name in block.keys():
 			if not name in ["t", "c", "open", "last_line_blank", "start_line", "start_column", "end_line", "children", "string_content", "strings", "inline_content", "destination", "label", "title", "list_data", "info", "tight", "parent", "level", "isOpen"]:
 				if not struct is "":
-					print(struct+"."+name+" is not a valid key.")
+					print(struct+name+" is not a valid key.")
 					failed += 1
 				else:
 					print(name+" is not a valid key.")
