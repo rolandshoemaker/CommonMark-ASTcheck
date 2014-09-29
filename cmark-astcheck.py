@@ -13,13 +13,13 @@ def check_block(ast, isJSON=True, struct=""):
 		print("block is not a object. "+str(type(block)))
 		failed += 1
 	else:
-		for t in block.keys():
-			if not t in ["t", "c", "open", "last_line_blank", "start_line", "start_column", "end_line", "children", "string_content", "strings", "inline_content", "destination", "label", "title", "list_data", "info", "tight", "parent", "level", "isOpen"]:
+		for name in block.keys():
+			if not name in ["t", "c", "open", "last_line_blank", "start_line", "start_column", "end_line", "children", "string_content", "strings", "inline_content", "destination", "label", "title", "list_data", "info", "tight", "parent", "level", "isOpen"]:
 				if not struct is "":
-					print(struct+"."+t+" is not a valid key.")
+					print(struct+"."+name+" is not a valid key.")
 					failed += 1
 				else:
-					print(t+" is not a valid key.")
+					print(name+" is not a valid key.")
 					failed += 1
 	if not type(block['t']) is str:
 		print(struct+".*something* is not a string.")
@@ -40,29 +40,29 @@ def check_block(ast, isJSON=True, struct=""):
 	if not type(block['last_line_blank']) is bool:
 		print(struct+block['t']+".last_line_blank is not a boolean.")
 		failed += 1
-	if not block['start_line'] in [None, ""] and not type(block['start_line']) is int:
+	if block.get('start_line', None) and not block['start_line'] in [None, ""] and not type(block['start_line']) is int:
 		print(struct+block['t']+".start_line is not a integer.")
 		failed += 1
 	else:
-		if not block['start_line'] in [None, ""] and block['start_line'] < 0:
+		if not block.get('start_line', "not") == "not" and not block['start_line'] in [None, ""] and block['start_line'] < 0:
 			print(struct+block['t']+".start_line is less that 0.")
 			failed += 1
-	if not block['start_column'] in [None, ""] and not type(block['start_column']) is int:
+	if not block.get('start_column', "not") == "not" and not type(block['start_column']) is int:
 		print(struct+block['t']+".start_column is not a integer.")
 		failed += 1
-	elif not block['start_column'] in [None, ""] and block['start_column'] < 0:
+	elif not block.get('start_column', "not") == "not" and not block['start_column'] in [None, ""] and block['start_column'] < 0:
 		print(struct+block['t']+".start_column is less that 0.")
 		failed += 1
-	if not block['end_line'] in [None, ""] and not type(block['end_line']) is int:
+	if not block.get('end_line', "not") == "not" and not block['end_line'] in [None, ""] and not type(block['end_line']) is int:
 		print(struct+block['t']+".end_line is not a integer.")
 		failed += 1
-	elif not block['end_line'] in [None, ""] and block['end_line'] < 0:
+	elif not block.get('end_line', "not") == "not" and not block['end_line'] in [None, ""] and block['end_line'] < 0:
 		print(struct+block['t']+".end_line is less that 0.")
 		failed += 1
-	if block.get('children', None) and not type(block['children']) is list:
+	if not block.get('children', "not") == "not" and not type(block['children']) is list:
 		print(struct+block['t']+".children is not a list.")
 		failed += 1
-	elif block.get('c', None):
+	elif not block.get('children', "not") == "not":
 		for i, b in enumerate(block['children']):
 			if not type(b) is dict:
 				print(struct+block['t']+".block.children["+str(i)+"] is not a object.")
@@ -93,9 +93,16 @@ def check_block(ast, isJSON=True, struct=""):
 	if block.get('destination', None) and not type(block['destination']) is str:
 		print(struct+block['t']+".destination is not a string.")
 		failed += 1
-	if block.get('label', None) and not type(block['label']) is str:
+	if block.get('label', None) and (not type(block['label']) is str and not type(block['label']) is list):
 		print(struct+block['t']+".label is not a string.")
 		failed += 1
+	elif block.get('label', None) and type(block['label']) is list:
+		for i, b in enumerate(block['label']):
+			if not type(b) is dict:
+				print(struct+block['t']+".label["+str(i)+"] is not a object.")
+				failed += 1
+			else:
+				failed += check_block(b, False, struct+block['t']+".label["+str(i)+"].")
 	if block.get('title', None) and not type(block['title']) is str:
 		print(struct+block['t']+".title is not a string.")
 		failed += 1

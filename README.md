@@ -8,15 +8,17 @@ Usage
 
     rolands@kamaji:~/utils/CommonMark-ASTcheck$ cmark.py README.md -aj | cmark-astcheck.py
     ## AST valid.
-    rolands@kamaji:~/utils/CommonMark-ASTcheck$ cmark-astcheck.py test.json
+    rolands@kamaji:~/utils/CommonMark-ASTcheck$ python3 cmark-astcheck.py README.json 
     ## AST valid.
-    rolands@kamaji:~/utils/CommonMark-ASTcheck$ cmark-astcheck.py -h
-    usage: cmark-astcheck.py [-h] [infile]
-
-	Check validity of CommonMark JSON AST files or from STDIN.
-
-	positional arguments:
-	  infile      JSON file to check, defaults to STDIN.
-
-	optional arguments:
-	  -h, --help  show this help message and exit
+    rolands@kamaji:~/utils/CommonMark-ASTcheck$ python3 cmark-astcheck.py BROKEN.json 
+    Document.start_column is not a integer.
+    Document.children[0].SetextHeader.end_line is not a integer.
+    SetextHeader.strings[0] is not a string.
+    Document.children[0].SetextHeader.inline_content[1] is not a object.
+    Document.children[0].SetextHeader.tight is not a boolean.
+    Document.children[1].Paragraph.inline_content[0]..bar is not a valid key.
+    Document.children[1].Paragraph.inline_content[1].Link.label[0].Str.last_line_blank is not a boolean.
+    SetextHeader.strings[0] is not a string.
+    Document.children[3].IndentedCode.start_column is not a integer.
+    ## AST invalid, 9 tests failed.
+    rolands@kamaji:~/utils/CommonMark-ASTcheck$
