@@ -1,7 +1,7 @@
 CommonMark-ASTcheck
 ===================
 
-tool to check validity of [CommonMark](http://commonmark.org) spec AST structure read from JSON (or directly by importing the function.)
+tool to check validity of [CommonMark](http://commonmark.org) spec AST structure read from JSON (or directly by importing the function), this will eventually be merged into [CommonMark-py](https://github.com/rolandshoemaker/CommonMark-py) most likely.
 
 **note:** *this is extremely rough at the moemnt, i plan to add proper structure checking later but currently it just validates the variable types in the ugliest way possible (i'm sorry i've not slept ._.)*
 
