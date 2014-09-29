@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # 2014 - cmark-astcheck.py, roland shoemaker
 # tool to check validity of CommonMark spec AST structure.
-import json, argparse
+import json, argparse, sys
 
 def check_block(ast, isJSON=True, struct=""):
 	failed = 0
@@ -30,7 +30,7 @@ def check_block(ast, isJSON=True, struct=""):
 	elif type(block['c']) is list:
 		for i, b in enumerate(block['c']):
 			if not type(b) is object:
-				print(struct+block['t']+".c["str(i)+"] is not a object.")
+				print(struct+block['t']+".c["+str(i)+"] is not a object.")
 				failed += 1
 			else:
 				failed += check_block(b, False, struct+block['t']+".c["+str(i)+"].")
@@ -134,7 +134,7 @@ def check_block(ast, isJSON=True, struct=""):
 	return failed
 
 if __name__ == "__main__":
-	parser = argparser.ArgumentParser(description="Check validity of CommonMark JSON AST files or from STDIN.")
+	parser = argparse.ArgumentParser(description="Check validity of CommonMark JSON AST files or from STDIN.")
 	parser.add_argument('infile', nargs="?", type=argparse.FileType('r'), default=sys.stdin, help="JSON file to check, defaults to STDIN.")
 	args = parser.parse_args()
 
@@ -146,6 +146,6 @@ if __name__ == "__main__":
 	tests = check_block(data)
 
 	if tests > 0:
-		print("AST invalid, "+str(tests)+" failed.")
+		print("## AST invalid, "+str(tests)+" tests failed.")
 	else:
-		print("AST valid.")
+		print("## AST valid.")
