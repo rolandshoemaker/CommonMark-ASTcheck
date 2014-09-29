@@ -24,10 +24,10 @@ def check_block(ast, isJSON=True, struct=""):
 	if not type(block['t']) is str:
 		print(struct+".*something* is not a string.")
 		failed += 1
-	if not type(block['c']) is list and not type(block['c']) is str:
+	if block.get('c', None) and not type(block['c']) is list and not type(block['c']) is str:
 		print(struct+block['t']+".c is not a string or list.")
 		failed += 1
-	elif type(block['c']) is list:
+	elif block.get('c', None) and type(block['c']) is list:
 		for i, b in enumerate(block['c']):
 			if not type(b) is dict:
 				print(struct+block['t']+".c["+str(i)+"] is not a object.")
@@ -59,76 +59,76 @@ def check_block(ast, isJSON=True, struct=""):
 	elif not block['end_line'] in [None, ""] and block['end_line'] < 0:
 		print(struct+block['t']+".end_line is less that 0.")
 		failed += 1
-	if not type(block['children']) is list:
+	if block.get('children', None) and not type(block['children']) is list:
 		print(struct+block['t']+".children is not a list.")
 		failed += 1
-	else:
+	elif block.get('c', None):
 		for i, b in enumerate(block['children']):
 			if not type(b) is dict:
 				print(struct+block['t']+".block.children["+str(i)+"] is not a object.")
 				failed += 1
 			else:
 				failed += check_block(b, False, struct+block['t']+".children["+str(i)+"].")
-	if not type(block['string_content']) is str:
+	if block.get('string_content', None) and not type(block['string_content']) is str:
 		print(struct+block['t']+".string_content is not a string.")
 		failed += 1
-	if not type(block['strings']) is list:
+	if block.get('strings', None) and not type(block['strings']) is list:
 		print(struct+block['t']+".strings is not a list.")
 		failed += 1
-	else:
+	elif block.get('strings', None):
 		for i, s in enumerate(block['strings']):
 			if not type(s) is str:
 				print(block['t']+".strings["+str(i)+"] is not a string.")
 				failed += 1
-	if not type(block['inline_content']) is list:
+	if block.get('inline_content', None) and not type(block['inline_content']) is list:
 		print(struct+block['t']+".inline_content is not a list.")
 		failed += 1
-	else:
+	elif block.get('inline_content', None):
 		for i, b in enumerate(block['inline_content']):
 			if not type(b) is dict:
 				print(struct+block['t']+".inline_content["+str(i)+"] is not a object.")
 				failed += 1
 			else:
 				failed += check_block(b, False, struct+block['t']+".inline_content["+str(i)+"].")
-	if not type(block['destination']) is str:
+	if block.get('destination', None) and not type(block['destination']) is str:
 		print(struct+block['t']+".destination is not a string.")
 		failed += 1
-	if not type(block['label']) is str:
+	if block.get('label', None) and not type(block['label']) is str:
 		print(struct+block['t']+".label is not a string.")
 		failed += 1
-	if not type(block['title']) is str:
+	if block.get('title', None) and not type(block['title']) is str:
 		print(struct+block['t']+".title is not a string.")
 		failed += 1
-	if not type(block['list_data']) is dict:
+	if block.get('list_data', None) and not type(block['list_data']) is dict:
 		print(struct+block['t']+".list_data is not a object.")
 		failed += 1
 	else:
-		if block['list_data'].get('type', None) and not type(block['list_data']['type']) is str:
+		if block.get('list_data', None) and block['list_data'].get('type', None) and not type(block['list_data']['type']) is str:
 			print(struct+block['t']+".list_data.type is not a string.")
 			failed += 1
-		if block['list_data'].get('delimiter', None) and not type(block['list_data']['delimiter']) is str:
+		if block.get('list_data', None) and block['list_data'].get('delimiter', None) and not type(block['list_data']['delimiter']) is str:
 			print(struct+block['t']+".list_data.delimiter is not a string.")
 			failed += 1
-		if block['list_data'].get('start', None) and not type(block['list_data']['start']) is int:
+		if block.get('list_data', None) and block['list_data'].get('start', None) and not type(block['list_data']['start']) is int:
 			print(struct+block['t']+".list_data.start is not a integer.")
 			failed += 1
-		elif block['list_data'].get('start', None) and block['list_data']['start'] < 0:
+		elif block.get('list_data', None) and block['list_data'].get('start', None) and block['list_data']['start'] < 0:
 			print(struct+block['t']+".list_data.start is less than 0.")
 			failed += 1
-		if block['list_data'].get('bullet_char', None) and not type(block['list_data']['bullet_char']) is str:
+		if block.get('list_data', None) and block['list_data'].get('bullet_char', None) and not type(block['list_data']['bullet_char']) is str:
 			print(struct+block['t']+".list_data.bullet_char is not a string.")
 			failed += 1
-		if block['list_data'].get('padding', None) and not type(block['list_data']['padding']) is int:
+		if block.get('list_data', None) and block['list_data'].get('padding', None) and not type(block['list_data']['padding']) is int:
 			print(struct+block['t']+".list_data.padding is not a integer.")
 			failed += 1
 		else:
-			if block['list_data'].get('padding', None) and block['list_data']['padding'] < 0:
+			if block.get('list_data', None) and block['list_data'].get('padding', None) and block['list_data']['padding'] < 0:
 				print(struct+block['t']+".list_data.padding is less than 0.")
 				failed += 1
-	if not type(block['info']) is str:
+	if block.get('info', None) and not type(block['info']) is str:
 		print(struct+block['t']+".info is not a string.")
 		failed += 1
-	if not type(block['tight']) is bool:
+	if block.get('tight', None) and not type(block['tight']) is bool:
 		print(struct+block['t']+".tight is not a boolean.")
 		failed += 1
 	return failed
